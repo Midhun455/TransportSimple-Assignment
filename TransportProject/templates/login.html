@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Form</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Slab&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/login-form.css' %}" />
+    <script src="{% static 'js/reg-form.js' %}"></script>
+    {% for i in messages %}
+    <script>
+        alert("{{i}}");
+    </script>
+    {% endfor %}
+</head>
+
+<body>
+    <div class="container">
+        <form method="post" id="myForm" onsubmit="return formSubmitHandler()">
+            {% csrf_token %}
+            <h2>Login</h2>
+            <div class="input-div">
+                <label for>E-mail:</label>
+                <input type="text" id="email" name="email" placeholder="Enter Email" onchange="inputEmail()" />
+                <p id="mail-hint"></p>
+            </div>
+            <div class="input-div">
+                <label>Password:</label>
+                <input type="password" id="password" name="password" onchange="inputPassword()"
+                    placeholder="Enter Password" />
+                <p id="pass-hint"></p>
+            </div>
+            <div class="input-div-btn">
+                <input type="submit" value="Login" />
+            </div>
+            <br>
+            <center>
+                <a id="login-txt" href="/register">Don't have an Account? <span class="login-now">Register
+                        Now</span></a>
+            </center>
+        </form>
+    </div>
+</body>
+
+</html>

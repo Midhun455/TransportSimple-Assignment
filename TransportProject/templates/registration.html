@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Form</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Slab&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/reg-form.css' %}" />
+    <script src="{% static 'js/reg-form.js' %}"></script>
+    {% for i in messages %}
+    <script>
+        alert("{{i}}");
+    </script>
+    {% endfor %}
+</head>
+
+<body>
+    <div class="container">
+        <form method="post" id="myForm" onsubmit="return formSubmitHandler()">
+            {% csrf_token %}
+            <h2>Registration</h2>
+            <div class="input-div">
+                <label for="input-name">Name</label>
+                <input type="text" id="input-name" name="name" placeholder="Enter your Name" pattern="[A-Za-z]*"
+                    onchange="inputName()" />
+                <p id="name-hint"></p>
+            </div>
+            <div class="input-div">
+                <label for>E-mail:</label>
+                <input type="text" id="email" name="email" placeholder="Enter Email" onchange="inputEmail()" />
+                <p id="mail-hint"></p>
+            </div>
+            <div class="input-div">
+                <label> Phone: </label>
+                <input type="text" id="phone" name="phone" placeholder="Enter Phone" maxlength="10"
+                    onchange="inputPhone()" />
+                <p id="phone-hint"></p>
+            </div>
+            <div class="input-div">
+                <label>Password:</label>
+                <input type="password" id="password" name="password" onkeydown="inputPassword()"
+                    placeholder="Enter Password" />
+                <p id="pass-hint"></p>
+            </div>
+            <div class="input-div">
+                <label>Confirm Password</label>
+                <input type="password" id="cnfpass" name="cnfpassword" onkeydown="inputcnfPassword()"
+                    placeholder="Confirm Password" />
+                <p id="cnfpass-hint"></p>
+            </div>
+            <div class="input-div-btn">
+                <input type="submit" value="Register Now" />
+            </div>
+            <br>
+            <center>
+                <a id="login-txt" href="/login">Already have Account? <span class="login-now">Login Now</span></a>
+            </center>
+        </form>
+    </div>
+</body>
+
+</html>
