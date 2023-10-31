@@ -25,4 +25,6 @@ urlpatterns = [
     path("login/", views.userLogin),
     path("index/", views.index),
     path("logout/", views.logoutFun),
+    path("askQuestion/", views.askQuestion),
+    path("postReply/", views.postReply),
 ]

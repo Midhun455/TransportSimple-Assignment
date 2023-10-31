@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, HttpResponseRedirect
 from .models import *
 from django.contrib import messages
 from django.contrib.auth import authenticate, logout, login
+from django.db.models import Q
 
 # Create your views here.
 
@@ -29,6 +30,7 @@ def registration(request):
                 )
                 regQry.save()
                 messages.success(request, "Registered Successfully!")
+                return redirect("/login")
             else:
                 messages.error(request, "Email already exists.")
         else:
@@ -43,14 +45,46 @@ def userLogin(request):
         user = authenticate(username=email, password=password)
         if user is not None:
             login(request, user)
+            request.session["uid"] = user.id
             messages.info(request, "Login Success")
             return redirect("/index")
     return render(request, "login.html")
 
 
 def index(request):
-    return render(request, "index.html")
+    loginid = request.session["uid"]
+    uid = Registration.objects.get(loginid=loginid)
+    data = Questions.objects.filter(~Q(uid=uid))
+    return render(request, "index.html", {"data": data})
+
 
 def logoutFun(request):
     logout(request)
     return redirect("/")
+
+
+def askQuestion(request):
+    loginid = request.session["uid"]
+    uid = Registration.objects.get(loginid=loginid)
+    if request.POST:
+        question = request.POST["question"]
+        ask = Questions.objects.create(uid=uid, question=question)
+        ask.save()
+        messages.success(request, "Success")
+    return redirect("/index")
+
+
+def postReply(request):
+    loginid = request.session["uid"]
+    uid = Registration.objects.get(loginid=loginid)
+    if request.POST:
+        reply = request.POST["reply"]
+        qid = request.POST["qid"]
+        qsId = Questions.objects.get(id=qid)
+        if not Answers.objects.filter(qid=qid, uid=uid).exists():
+            replyQs = Answers.objects.create(qid=qsId, uid=uid, answer=reply)
+            replyQs.save()
+            messages.success(request, "Replied")
+        else:
+            messages.error(request, "Already Replied")
+    return redirect("/index")
