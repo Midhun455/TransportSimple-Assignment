@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <script src="https://kit.fontawesome.com/a7ef121b35.js" crossorigin="anonymous"></script>
@@ -87,20 +87,28 @@
         </section>
         <div class="answer-div">
             <div class="custom-row">
-                {% for i in data %}
+                {% for question, has_answers, answer_date in data %}
                 <div class="custom-card">
                     <div class="custom-content">
-                        <h2 id="custom-heading">{{i.question}}</h2>
-                        <p class="custom-text">No answers yet · Uploaded on {{i.date}}</p>
+                        <h2 id="custom-heading">{{ question.question }}</h2>
+                        <p class="custom-text">
+                            {% if has_answers %}
+                            <a id="answerLink" href="/viewAnswers?id={{question.id}}">Answers available</a> · Answered
+                            on {{
+                            answer_date }} <br>Uploaded on {{ question.date }}
+                            {% else %}
+                            No answers yet · Uploaded on {{ question.date }}
+                            {% endif %}
+                        </p>
                     </div>
-                    <a onclick="document.getElementById('id{{i.id}}').style.display='block'" class="custom-button"><i
-                            class="fa-solid fa-pen-to-square"></i> Answer</a>
+                    <a onclick="document.getElementById('id{{question.id}}').style.display='block'"
+                        class="custom-button"><i class="fa-solid fa-pen-to-square"></i> Answer</a>
                     <div class="w3-container">
-                        <div id="id{{i.id}}" class="w3-modal">
+                        <div id="id{{question.id}}" class="w3-modal">
                             <div class="w3-modal-content w3-animate-top w3-card-4" style="border-radius: 10px;">
                                 <header class="w3-container"
                                     style="background-color: #1346E2;border-top-left-radius: 10px;border-top-right-radius: 10px;">
-                                    <span onclick="document.getElementById('id{{i.id}}').style.display='none'"
+                                    <span onclick="document.getElementById('id{{question.id}}').style.display='none'"
                                         class="w3-button w3-display-topright"
                                         style="border-top-right-radius: 10px;color: white;" id="btn-quit">&times;</span>
                                     <h2 id="reply-txt" style="color: white;">Reply Now</h2>
@@ -111,13 +119,13 @@
                                         <div class="single-form">
                                             <input type="text" required name="reply" class="input-question"
                                                 placeholder='Enter your reply here'>
-                                            <input type="hidden" name="qid" value="{{i.id}}">
+                                            <input type="hidden" name="qid" value="{{question.id}}">
                                         </div>
                                         <div class="div-gap"></div>
                                         <hr>
                                         <div class="single-form mt-3" id="btn-div">
                                             <button type="button"
-                                                onclick="document.getElementById('id{{i.id}}').style.display='none'"
+                                                onclick="document.getElementById('id{{question.id}}').style.display='none'"
                                                 name="paynow" class="btn btn-custom-01 w-100 mb-5"
                                                 id="btn-cancel">Cancel</button>
                                             <button type="submit" name="addQuestion" id="btn-add"

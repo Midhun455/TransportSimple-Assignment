@@ -216,8 +216,10 @@ a:hover {
 
 .custom-button {
     background-color: transparent;
-    border-radius: 50px;
+    border-radius: 50px !important;
     color: grey;
+    width: 50px !important;
+    height: 50px !important;
     border: none;
     text-align: center;
     text-decoration: none;
@@ -256,4 +258,63 @@ a:hover {
 #reply-txt {
     color: white !important;
     letter-spacing: 2px;
+}
+
+#answerLink {
+    text-decoration: none;
+}
+
+#custom-heading {
+    font-family: 'Times New Roman', Times, serif;
+    margin-left: 5px;
+}
+
+#custom-button {
+    background-color: transparent;
+    border-radius: 100% !important;
+    color: grey;
+    width: 100px !important;
+    height: 100px !important;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: x-large;
+    margin-left: 20px;
+    /* border: 1px solid grey; */
+}
+
+.custom-button1 {
+    background-color: transparent;
+    border-radius: 100% !important;
+    color: grey;
+    width: 100px !important;
+    height: 100px !important;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: x-large;
+    margin-left: 20px;
+    /* border: 1px solid grey; */
+}
+
+.custom-button2 {
+    background-color: transparent;
+    border-radius: 100% !important;
+    color: grey;
+    width: 100px !important;
+    height: 100px !important;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: x-large;
+    margin-left: 20px;
+    /* border: 1px solid grey; */
+}
+
+#like-count {
+    font-size: x-large;
+    color: black;
 }

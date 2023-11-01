@@ -27,4 +27,7 @@ urlpatterns = [
     path("logout/", views.logoutFun),
     path("askQuestion/", views.askQuestion),
     path("postReply/", views.postReply),
+    path("viewAnswers/", views.viewAnswers),
+    path("addLike/", views.addLike),
+    path("removeLike/", views.removeLike),
 ]

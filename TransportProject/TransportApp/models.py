@@ -27,3 +27,10 @@ class Answers(models.Model):
     uid = models.ForeignKey(Registration, on_delete=models.CASCADE)
     answer = models.CharField(max_length=500)
     date = models.DateField(auto_now_add=True)
+    like_count = models.IntegerField(null=True, default=0)
+
+
+class Likes(models.Model):
+    question_id = models.ForeignKey(Questions, on_delete=models.CASCADE)
+    answer_id = models.ForeignKey(Answers, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(Registration, on_delete=models.CASCADE)
